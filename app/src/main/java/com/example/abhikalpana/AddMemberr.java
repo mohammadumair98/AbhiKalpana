@@ -198,7 +198,7 @@ public class AddMemberr extends AppCompatActivity {
                         if (dataSnapshot.child(userName).child("Email").exists())
                             Toast.makeText(getApplicationContext(), "Username taken or contains symbols or spaces!", Toast.LENGTH_SHORT).show();
                         else {
-                            // this is a comment
+                            // this is a comment 2
                             uploadImage(v);
                             addmember.child(String.valueOf(nest_no)).child(name).child("Name").setValue(name);
                             addmember.child(String.valueOf(nest_no)).child(name).child("Branch").setValue(branch);
