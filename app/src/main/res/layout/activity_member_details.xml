@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_dark_background"
+    tools:context=".MemberDetails">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="146dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/nametv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="57dp"/>
+
+                <EditText
+                    android:id="@+id/nameeditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="57dp"
+                    android:textSize="24sp"
+                    android:visibility="gone"
+                    android:inputType="textPersonName"
+                    android:hint="Name" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/branchtextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:textColor="@color/cardview_light_background"
+                        android:textSize="20sp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="25dp"
+                        android:text="Branch" />
+
+                <EditText
+                    android:id="@+id/ageedittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:hint="Age"
+                    android:inputType="number"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/branchET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:hint="Branch"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:visibility="gone"/>
+
+
+                <TextView
+                    android:id="@+id/agetextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Age"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/nesttv"
+                android:textColor="@color/cardview_light_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textSize="20sp"
+                android:text="Nest" />
+
+            <EditText
+                android:id="@+id/nestedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textSize="24sp"
+                android:visibility="gone"
+                android:inputType="text"
+                android:hint="Nest" />
+
+            <TextView
+                android:id="@+id/nestCaptaintruefalsetv"
+                android:textColor="@color/cardview_light_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="30dp"
+                android:textSize="20sp"
+                android:text="Nest Captain" />
+
+            <EditText
+                android:id="@+id/nestCaptaintruefalseedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="30dp"
+                android:textSize="24sp"
+                android:visibility="gone"
+                android:inputType="text"
+                android:hint="Enter Yes or No" />
+
+            <RelativeLayout
+                android:id="@+id/classrelativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/classtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Class"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/classedittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:hint="Class"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/schoolrelativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/schooltextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:text="School"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/schooledittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:hint="School"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lastattendedtextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Last Attended" />
+
+                <TextView
+                    android:id="@+id/lastattendedtextview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="25dp"
+                    android:text="Date"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/lastattendededittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="49dp"
+                    android:layout_marginRight="49dp"
+                    android:hint="Date"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/laststudiedrelativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/laststudiedtextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Last Studied"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/logedittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:hint="Enter log"
+                    android:textSize="20sp"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/lastcheckuprelativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/checkuptextViewe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Last Checkup"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/checkuptextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="25dp"
+                    android:text="Date"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/checkupedittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="50dp"
+                    android:hint="Date"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/editbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/uploadimagebtnofmemberdetails"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Image" />
+
+            <Button
+                android:id="@+id/updatebtn"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+
+</LinearLayout>

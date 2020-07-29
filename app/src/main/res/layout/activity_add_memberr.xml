@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".AddMemberr">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup"
+                android:layout_marginStart="38dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="43dp">
+
+                <RadioButton
+                    android:id="@+id/childradioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Child"
+                    android:textColor="@color/cardview_light_background" />
+
+                <RadioButton
+                    android:id="@+id/memberradioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Member"
+                    android:textColor="@color/cardview_light_background" />
+
+            </RadioGroup>
+
+
+            <EditText
+                android:id="@+id/nameeditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/ageedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                android:textColor="@color/cardview_light_background" />
+
+            <EditText
+                android:id="@+id/branchedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:hint="Branch"
+                android:inputType="textPersonName"
+                android:textColor="@color/cardview_light_background" />
+
+            <EditText
+                android:id="@+id/nestnoedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:inputType="number"
+                android:textColor="@color/cardview_light_background"
+                android:hint="Nest" />
+
+            <EditText
+                android:id="@+id/emailedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:inputType="text"
+                android:hint="Username" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nestCaptaintv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="50dp"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:text="Nest Captain" />
+
+                <CheckBox
+                    android:id="@+id/nestCaptaincheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/classedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:hint="Class"
+                android:inputType="text"
+                android:textColor="@color/cardview_light_background" />
+
+
+
+            <EditText
+                android:id="@+id/schooledittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:hint="School"
+                android:inputType="text"
+                android:textColor="@color/cardview_light_background" />
+
+            <Button
+                android:id="@+id/uploadimagebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="50dp"
+                android:text="Upload Image" />
+
+            <Button
+                android:id="@+id/addbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Add Member" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
