@@ -47,6 +47,7 @@ public class NestDataBase extends AppCompatActivity{
     public static Context ct;
     final boolean attendance = false;
     public FrameLayout nestframelayout;
+    String nameofUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class NestDataBase extends AppCompatActivity{
 
         globalNest_no = getIntent().getIntExtra("nest_no", 1);
         nest_captain = getIntent().getStringExtra("nest_captain");
+        nameofUser = getIntent().getStringExtra("name");
         TabLayout.Tab childrentab = tabLayout.newTab();
         appbarnametv.setText("Nest " + globalNest_no);
         childrentab.setText("Children");
@@ -92,7 +94,8 @@ public class NestDataBase extends AppCompatActivity{
                 tabLayout.getTabCount(),
                 attendance,
                 globalNest_no,
-                nest_captain);
+                nest_captain,
+                nameofUser);
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));   /*When tab is slid in app this detects it   */

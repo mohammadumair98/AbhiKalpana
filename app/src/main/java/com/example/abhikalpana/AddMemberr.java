@@ -237,6 +237,8 @@ public class AddMemberr extends AppCompatActivity {
                     else if (path.equals("Volunteers"))
                         usernameCheck(userName, v);
                     else if (path.equals("Kids")){
+                        int idcount = dataSnapshot.child("idcount").getValue(Integer.class);
+                        idcount++;
                         nest_no = Integer.parseInt((nest_noCheck));
                         uploadImage(v);
                         addmember.child(String.valueOf(nest_no)).child(name).child("Name").setValue(name);
@@ -244,6 +246,8 @@ public class AddMemberr extends AppCompatActivity {
                         addmember.child(String.valueOf(nest_no)).child(name).child("Class").setValue(class_no);
                         addmember.child(String.valueOf(nest_no)).child(name).child("School").setValue(school);
                         addmember.child(String.valueOf(nest_no)).child(name).child("Nest").setValue(nest_no);
+                        addmember.child(String.valueOf(nest_no)).child(name).child("id").setValue(idcount);
+                        addmember.child("idcount").setValue(idcount);
                         imageUploaded = false;
                         Toast.makeText(v.getContext(), "Child Added Successfully", Toast.LENGTH_SHORT).show();
                     }

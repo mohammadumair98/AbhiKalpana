@@ -285,16 +285,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/laststudiedtextView"
+                <Button
+                    android:id="@+id/laststudiedbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
                     android:layout_marginTop="10dp"
                     android:text="Last Studied"
-                    android:textColor="@color/cardview_light_background"
-                    android:textSize="20sp" />
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/logedittext"

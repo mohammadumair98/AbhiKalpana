@@ -16,6 +16,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     boolean attendance = false;
     int globalNest_no;
     String nest_captain;
+    String nameofUser;
 
     public FragmentAdapter(Context context, FragmentManager fm, int totalTabs) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -29,13 +30,15 @@ public class FragmentAdapter extends FragmentPagerAdapter {
                            int totalTabs,
                            boolean attendance,
                            int globalNest_no,
-                           String nest_captain) {
+                           String nest_captain,
+                           String nameofUser) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         myContext = context;
         this.totalTabs = totalTabs;
         this.attendance = attendance;
         this.globalNest_no = globalNest_no;
         this.nest_captain = nest_captain;
+        this.nameofUser = nameofUser;
         Log.v("TAG", "Entered FragmentAdapter");
     }
 
@@ -46,7 +49,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 /*If Kids tab is selected then instantiate the KidsRecyclerViewFragment class and execute it */
-                KidsRecyclerViewFragment  kids= new KidsRecyclerViewFragment(myContext, position, attendance, globalNest_no, nest_captain);   //Sending context through myContext
+                KidsRecyclerViewFragment  kids= new KidsRecyclerViewFragment(myContext, position, attendance, globalNest_no, nest_captain, nameofUser);   //Sending context through myContext
                 Log.v("TAG", "KidsRecyclerViewFragment switch case entered");
                 return kids;
 

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".NestSelect"></activity>
+        <activity android:name=".StudyLog"></activity>
+        <activity android:name=".NestSelect" />
         <activity android:name=".AddMemberr" />
         <activity android:name=".MemberDetails" />
         <activity android:name=".CommonDashboard" />

@@ -34,13 +34,16 @@ public class KidsRecyclerViewFragment extends Fragment {
     boolean attendance;
     ArrayList<KidsData> kidsData;
     String nest_captain;
+    String nameofUser;
 
-    public KidsRecyclerViewFragment(Context context, int tabposition, boolean attendance, int globalNest_no, String nest_captain) {
+    public KidsRecyclerViewFragment(Context context, int tabposition, boolean attendance, int globalNest_no, String nest_captain,
+                                    String nameofUser) {
         this.context = context;
         this.globalNest_no = globalNest_no;
         this.attendance = attendance;
         tabPosition = tabposition;
         this.nest_captain = nest_captain;
+        this.nameofUser = nameofUser;
         Log.v("TAG", "Received tabpos in RecyclerView");
     }
 
@@ -61,7 +64,7 @@ public class KidsRecyclerViewFragment extends Fragment {
         searchView = (SearchView) view.findViewById(R.id.searchView);
         Log.v("TAG", "Reached");
         memberListView = (RecyclerView) view.findViewById(R.id.memberrv);
-        memberAdapter = new RecyclerViewAdapter(context, kidsData, attendance, globalNest_no, nest_captain );
+        memberAdapter = new RecyclerViewAdapter(context, kidsData, attendance, globalNest_no, nest_captain, nameofUser );
         memberListView.setAdapter(memberAdapter);
         memberListView.setLayoutManager(new LinearLayoutManager(context));
         Log.v("TAG", "Reached");

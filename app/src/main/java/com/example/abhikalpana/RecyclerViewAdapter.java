@@ -36,20 +36,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context ct;
     int tabPosition, globalNest_no;
     String nest_captain;
+    String nameofUser;
     boolean kid, volunteer = false, attendance, searchValueEntered = false;
 
-    public RecyclerViewAdapter(Context c, ArrayList<KidsData> kidsData, boolean attendance, int globalNest_no, String nest_captain) {
+    public RecyclerViewAdapter(Context c, ArrayList<KidsData> kidsData, boolean attendance, int globalNest_no, String nest_captain,
+                               String nameofUser) {
         this.attendance = attendance;
         this.nest_captain = nest_captain;
         this.kidsData = kidsData;
         this.globalNest_no = globalNest_no;
+        this.nameofUser = nameofUser;
         ct = c;
         kid = true;
         tabPosition = 0;
         kidsSearchFull = new ArrayList<>(kidsData);
     }
 
-    public RecyclerViewAdapter(Context c, ArrayList<MembersData> membersData, boolean attendance, int globalNest_no, String nest_captain, int nothing) {
+    public RecyclerViewAdapter(Context c, ArrayList<MembersData> membersData, boolean attendance, int globalNest_no,
+                               String nest_captain,
+                               int nothing) {
         ct = c;
         this.nest_captain = nest_captain;
         this.attendance = attendance;
@@ -100,6 +105,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             Log.v("TAG", "Starting MemberDetails");
                             Intent intent = new Intent(ct, MemberDetails.class);
                             intent.putExtra("name", name);
+                            intent.putExtra("nameofUser", nameofUser);
                             intent.putExtra("tabPosition", tabPosition);
                             intent.putExtra("nest_captain", nest_captain);
                             intent.putExtra("nest_no", globalNest_no);

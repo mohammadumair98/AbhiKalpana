@@ -19,6 +19,7 @@ public class AttendancePage extends AppCompatActivity {
     final boolean attendance = true;
     int globalNest_no;
     String nest_captain = "true";
+    String nameofUser;
 
 
     @Override
@@ -37,7 +38,9 @@ public class AttendancePage extends AppCompatActivity {
         tabLayout.addTab(childrentab, 0);
         tabLayout.addTab(volunteertab, 1);
         globalNest_no = getIntent().getIntExtra("nest_no", 1);
-        final FragmentAdapter adapter = new FragmentAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount(), attendance, globalNest_no, nest_captain);
+        nameofUser = getIntent().getStringExtra("name");
+        final FragmentAdapter adapter = new FragmentAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount(), attendance, globalNest_no, nest_captain,
+                nameofUser);
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

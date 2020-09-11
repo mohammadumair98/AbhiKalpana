@@ -18,6 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,6 +38,12 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class MemberDetails extends AppCompatActivity {
 
 
@@ -44,7 +56,7 @@ public class MemberDetails extends AppCompatActivity {
     TextView schooltv;
     TextView classtv;
     TextView lastattendedDateTV;
-    TextView laststudiedTV;
+    Button laststudiedbtn;
     TextView lastcheckupDateTV;
     TextView lastcheckupTV;
     EditText logedittext;
@@ -78,16 +90,20 @@ public class MemberDetails extends AppCompatActivity {
     String name, class_no, school, last_attended_date, last_studied, last_checkup_date, dpurl;
     String branch, nest_captain, nest_captainCheck = "true";
     static String path;
-    int age, nest_no, globalNest_no;
-
-
+    int age, nest_no, globalNest_no, id;
+    RequestQueue requestQueue;
+    String jsonResponse = "";
+    String url_post_data = "http://thantrajna.com/AbhiKalpana/insert_log.php";
+    String nameofUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_details);
+        requestQueue = Volley.newRequestQueue(this);
         tabPosition = getIntent().getIntExtra("tabPosition", 0);
         name = getIntent().getStringExtra("name");
+        nameofUser = getIntent().getStringExtra("nameofUser");
         globalNest_no = getIntent().getIntExtra("nest_no", 1);
         nest_captainCheck = getIntent().getStringExtra("nest_captain");
         elementsinit();
@@ -122,11 +138,19 @@ public class MemberDetails extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     last_studied = logedittext.getText().toString();
-                    final DatabaseReference updatekids = FirebaseDatabase.getInstance().getReference("Kids");
-                    updatekids.child(String.valueOf(globalNest_no)).child(name).child("Last Studied").setValue(last_studied);
+                    if(last_studied.isEmpty());
+                    else
+                        insertlog();
                     logedittext.getText().clear();
                     setKidsData();
-                    Toast.makeText(getApplicationContext(), "Updated Succesfully", Toast.LENGTH_SHORT).show();
+                }
+            });
+            laststudiedbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MemberDetails.this, StudyLog.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
                 }
             });
         }
@@ -168,7 +192,7 @@ public class MemberDetails extends AppCompatActivity {
         schooltv = (TextView) findViewById(R.id.schooltextView);
         classtv = (TextView) findViewById(R.id.classtv);
         lastattendedDateTV = (TextView) findViewById(R.id.lastattendedtextview);
-        laststudiedTV = (TextView) findViewById(R.id.laststudiedtextView);
+        laststudiedbtn = (Button) findViewById(R.id.laststudiedbtn);
         lastcheckupDateTV = (TextView) findViewById(R.id.checkuptextView);
         lastcheckupTV = (TextView) findViewById(R.id.checkuptextViewe);
         logedittext = (EditText) findViewById(R.id.logedittext);
@@ -242,7 +266,7 @@ public class MemberDetails extends AppCompatActivity {
         nesttv.setVisibility(View.VISIBLE);
         nestcaptaintv.setVisibility(View.VISIBLE);
         schooltv.setVisibility(View.VISIBLE);
-        laststudiedTV.setVisibility(View.VISIBLE);
+        laststudiedbtn.setVisibility(View.VISIBLE);
         classtv.setVisibility(View.VISIBLE);
         lastattendedDateTV.setVisibility(View.VISIBLE);
         lastcheckupTV.setVisibility(View.VISIBLE);
@@ -261,7 +285,7 @@ public class MemberDetails extends AppCompatActivity {
             classtv.setVisibility(View.VISIBLE);
             schooltv.setVisibility(View.VISIBLE);
             laststudiedrelativelayout.setVisibility(View.VISIBLE);
-            laststudiedTV.setVisibility(View.VISIBLE);
+            laststudiedbtn.setVisibility(View.VISIBLE);
             lastcheckupTV.setVisibility(View.VISIBLE);
             lastcheckupDateTV.setVisibility(View.VISIBLE);
 
@@ -271,7 +295,7 @@ public class MemberDetails extends AppCompatActivity {
             ageet.setVisibility(View.VISIBLE);
             classet.setVisibility(View.VISIBLE);
             schoolet.setVisibility(View.VISIBLE);
-            laststudiedTV.setVisibility(View.VISIBLE);
+            laststudiedbtn.setVisibility(View.VISIBLE);
             logedittext.setVisibility(View.VISIBLE);
             lastcheckupDateET.setVisibility(View.VISIBLE);
 
@@ -288,7 +312,7 @@ public class MemberDetails extends AppCompatActivity {
             agetv.setVisibility(View.GONE);
             classtv.setVisibility(View.GONE);
             schooltv.setVisibility(View.GONE);
-            laststudiedTV.setVisibility(View.GONE);
+            laststudiedbtn.setVisibility(View.GONE);
             lastcheckupTV.setVisibility(View.GONE);
             lastcheckupDateTV.setVisibility(View.GONE);
 
@@ -331,6 +355,7 @@ public class MemberDetails extends AppCompatActivity {
                     last_studied = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("Last Studied").getValue(String.class);
                     last_checkup_date = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("Last Checkup").getValue(String.class);
                     dpurl = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("dpUrl").getValue(String.class);
+                    id = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("id").getValue(Integer.class);
                     dataFetched = true;
                     setKidsData();
                     Log.v("TAG", "Data Received in Member details");
@@ -382,11 +407,9 @@ public class MemberDetails extends AppCompatActivity {
                     .into(imageView);
             if (last_attended_date != null) {
                 lastattendedDateTV.setText(last_attended_date);
-                laststudiedTV.setText("Last Studied:\n" + last_studied);
                 lastcheckupDateTV.setText(last_checkup_date);
             } else {
                 lastattendedDateTV.setText(" ");
-                laststudiedTV.setText("Last Studied");
                 lastcheckupDateTV.setText(" ");
             }
         }
@@ -404,11 +427,9 @@ public class MemberDetails extends AppCompatActivity {
                     .into(imageView);
             if (last_attended_date != null) {
                 lastattendedDateET.setText(last_attended_date);
-                laststudiedTV.setText(last_studied);
                 lastcheckupDateET.setText(last_checkup_date);
             } else {
                 lastattendedDateET.getText().clear();
-                laststudiedTV.setText("Last Studied");
                 lastcheckupDateET.getText().clear();
             }
 
@@ -420,10 +441,10 @@ public class MemberDetails extends AppCompatActivity {
         if(readStatus ) {
             nametv.setText(name);
             nesttv.setText("Nest: " + Integer.toString(nest_no));
-            if (nest_captain == "true")
-                nestcaptaintv.setText("Nest Captain: Yes");
-            else
+            if (nest_captain.equals("false"))
                 nestcaptaintv.setText("Nest Captain: No");
+            else
+                nestcaptaintv.setText("Nest Captain: Yes");
             branchtv.setText("Branch: " + branch);
             Glide.with(getApplicationContext())
                     .load(dpurl)
@@ -438,10 +459,10 @@ public class MemberDetails extends AppCompatActivity {
         if(!readStatus ) {
             nameet.setText(name);
             nestet.setText(Integer.toString(nest_no));
-            if (nest_captain == "true")
-                nestcaptainet.setText("Yes");
-            else
+            if (nest_captain.equals("false"))
                 nestcaptainet.setText("No");
+            else
+                nestcaptainet.setText("Yes");
             branchet.setText(branch);
             Glide.with(getApplicationContext())
                     .load(dpurl)
@@ -598,5 +619,68 @@ public class MemberDetails extends AppCompatActivity {
         });
 
 
+    }
+
+    void insertlog() {
+        try {
+            volleyLogin();
+            Toast.makeText(getApplicationContext(), "Updated Succesfully", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void volleyLogin() throws JSONException
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_post_data,
+                new Response.Listener<String>()
+                {
+                    JSONObject res = null;
+                    @Override
+                    public void onResponse(String ServerResponse)
+                    {
+                        try {
+                            res = new JSONObject(ServerResponse);
+
+                            if(res.getString("error").length() == 0)
+                            {
+                                Toast.makeText(getApplicationContext(), "Thank you: "+res.getString("success"), Toast.LENGTH_LONG).show();
+                            }
+
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(), "Sorry!! : "+res.getString("error"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        catch (JSONException e)
+                        {
+                            Toast.makeText(getApplicationContext(), "Error JSON : ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError)
+                    {
+                        Toast.makeText(getApplicationContext(), "ERROR_2 "+volleyError.toString(), Toast.LENGTH_LONG).show();
+                    }
+                })
+
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("id", String.valueOf(id));
+                params.put("log", last_studied);
+                params.put("incharge", nameofUser);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
     }
 }

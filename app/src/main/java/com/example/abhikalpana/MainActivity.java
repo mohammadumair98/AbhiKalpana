@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginbtn;
     SharedPreferences sp;
     String userName;
+    String nameofUser;
     boolean logout, userFound;
     boolean doubleBackToExitPressedOnce = false;
 
@@ -104,11 +105,13 @@ public class MainActivity extends AppCompatActivity {
                             if(userName.contains(mail)) {
                                 logout = false;
                                 userFound = true;
+                                nameofUser = npsnapshot.child("Name").getValue(String.class);
                                 sp.edit().putString("userName", userName).apply();
                                 sp.edit().putBoolean("logged",true).apply();
                                 Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), NestSelect.class);
                                 intent.putExtra("nest_captain", nest_captain);
+                                intent.putExtra("name", nameofUser);
                                 startActivity(intent);
                             }
                         } catch (Exception e) {

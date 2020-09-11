@@ -19,6 +19,7 @@ public class NestSelect extends AppCompatActivity {
     Button nest2btn;
     Button nest3btn;
     Button logoutbtn;
+    String nameofUser;
     private String email, nest_captain;
     boolean logout = false;
     boolean doubleBackToExitPressedOnce = false;
@@ -30,7 +31,7 @@ public class NestSelect extends AppCompatActivity {
 
         elementsinit();
         nest_captain = getIntent().getStringExtra("nest_captain");
-
+        nameofUser = getIntent().getStringExtra("name");
 
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,7 @@ public class NestSelect extends AppCompatActivity {
                 }
                 intent.putExtra("nest_no", 1);
                 intent.putExtra("nest_captain", nest_captain);
+                intent.putExtra("name", nameofUser);
                 startActivity(intent);
             }
         });
@@ -71,6 +73,7 @@ public class NestSelect extends AppCompatActivity {
                 }
                 intent.putExtra("nest_no", 2);
                 intent.putExtra("nest_captain", nest_captain);
+                intent.putExtra("name", nameofUser);
                 startActivity(intent);
             }
         });
@@ -87,6 +90,7 @@ public class NestSelect extends AppCompatActivity {
                 }
                 intent.putExtra("nest_no", 3);
                 intent.putExtra("nest_captain", nest_captain);
+                intent.putExtra("name", nameofUser);
                 startActivity(intent);
             }
         });

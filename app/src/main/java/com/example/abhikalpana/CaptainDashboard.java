@@ -17,6 +17,7 @@ public class CaptainDashboard extends AppCompatActivity {
     Button attendancebtn;
     Button databasebtn;
     int globalNest_no;
+    String nameofUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class CaptainDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_captain_dashboard);
 
         globalNest_no = getIntent().getIntExtra("nest_no", 1);
+        nameofUser = getIntent().getStringExtra("name");
 
         elementsInit();
         addmemberbtn.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +40,7 @@ public class CaptainDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AttendancePage.class);
+                intent.putExtra("name", nameofUser);
                 intent.putExtra("nest_no", globalNest_no);
                 startActivity(intent);
             }
@@ -48,6 +51,7 @@ public class CaptainDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), NestDataBase.class);
                 intent.putExtra("nest_no", globalNest_no);
+                intent.putExtra("name", nameofUser);
                 startActivity(intent);
             }
         });
