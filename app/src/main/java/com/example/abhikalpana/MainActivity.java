@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     EditText usernameet;
     Button loginbtn;
     SharedPreferences sp;
+    ProgressBar progressBar;
     String userName;
     String nameofUser;
     boolean logout, userFound;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         sp = getSharedPreferences("login",MODE_PRIVATE);
         usernameet = (EditText) findViewById(R.id.usernameet);
         loginbtn = (Button) findViewById(R.id.loginbtn);
+        progressBar = findViewById(R.id.progressBar);
 
 
         testbtn = (Button) findViewById(R.id.testbtn);
@@ -73,12 +76,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(sp.getBoolean("logged",false)){
+            progressBar.setVisibility(View.VISIBLE);
             findUser(sp.getString("userName", ""));
         }
 
         findViewById(R.id.loginbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 userName = usernameet.getText().toString();
                 findUser(userName);
             }
@@ -86,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void findUser(final String userName) {
         final DatabaseReference memberdb = FirebaseDatabase.getInstance().getReference("Volunteer Emails");
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                 nameofUser = npsnapshot.child("Name").getValue(String.class);
                                 sp.edit().putString("userName", userName).apply();
                                 sp.edit().putBoolean("logged",true).apply();
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), NestSelect.class);
                                 intent.putExtra("nest_captain", nest_captain);
@@ -118,8 +126,10 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    if(!userFound)
+                    if(!userFound) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(MainActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                    }
                 } else
                     Log.v("TAG", "Firebase Else entered");
             }
