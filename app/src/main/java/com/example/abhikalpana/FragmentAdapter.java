@@ -55,7 +55,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
             case 1:
                 /*If Volunteer tab is selected then instantiate the VolunteerRecyclerViewFragment class and execute it */
-                VolunteerRecyclerViewFragment volunteer = new VolunteerRecyclerViewFragment(myContext, attendance, globalNest_no, nest_captain);             //Sending context through myContext
+                VolunteerRecyclerViewFragment volunteer = new VolunteerRecyclerViewFragment(myContext, attendance, globalNest_no, nest_captain, nameofUser);             //Sending context through myContext
                 Log.v("TAG", "VolunteerRecyclerViewFragment switch case entered");
                 return volunteer;
             default:

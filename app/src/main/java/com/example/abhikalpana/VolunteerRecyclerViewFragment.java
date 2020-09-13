@@ -34,13 +34,14 @@ public class VolunteerRecyclerViewFragment extends Fragment {
     boolean attendance;
     ArrayList<MembersData> membersData;
     int globalNest_no;
-    String nest_captain;
+    String nest_captain, nameofUser;
 
-    public VolunteerRecyclerViewFragment(Context context, boolean attendance, int globalNest_no, String nest_captain) {
+    public VolunteerRecyclerViewFragment(Context context, boolean attendance, int globalNest_no, String nest_captain, String nameofUser) {
         this.attendance = attendance;
         this.globalNest_no = globalNest_no;
         this.context = context;
         this.nest_captain = nest_captain;
+        this.nameofUser = nameofUser;
     }
 
     public VolunteerRecyclerViewFragment() {
@@ -57,7 +58,7 @@ public class VolunteerRecyclerViewFragment extends Fragment {
         searchView = (SearchView) view.findViewById(R.id.searchView);
 
         memberListView = (RecyclerView) view.findViewById(R.id.memberrv);
-        memberAdapter = new RecyclerViewAdapter(context, membersData, attendance, globalNest_no,nest_captain, 0);
+        memberAdapter = new RecyclerViewAdapter(context, membersData, attendance, globalNest_no,nest_captain, nameofUser, 0);
         memberListView.setAdapter(memberAdapter);
         memberListView.setLayoutManager(new LinearLayoutManager(context));
 
@@ -86,7 +87,8 @@ public class VolunteerRecyclerViewFragment extends Fragment {
                             String branch = npsnapshot.child("Branch").getValue(String.class);
                             Integer nest = npsnapshot.child("Nest").getValue(Integer.class);
                             String dpUrl  = npsnapshot.child("dpUrl").getValue(String.class);
-                            membersData.add(new MembersData(name, branch, dpUrl, nest));
+                            String email  = npsnapshot.child("Email").getValue(String.class);
+                            membersData.add(new MembersData(name, branch, dpUrl, nest, email));
                             memberAdapter.notifyDataSetChanged();
                             Log.v("TAG", "Data Received ");
                         } catch (Exception e) {

@@ -53,13 +53,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public RecyclerViewAdapter(Context c, ArrayList<MembersData> membersData, boolean attendance, int globalNest_no,
-                               String nest_captain,
+                               String nest_captain, String nameofUser,
                                int nothing) {
         ct = c;
         this.nest_captain = nest_captain;
         this.attendance = attendance;
         this.globalNest_no = globalNest_no;
         this.membersData = membersData;
+        this.nameofUser = nameofUser;
         volunteer = true;
         tabPosition = 1;
         membersSearchFull = new ArrayList<>(membersData);
@@ -117,6 +118,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if (volunteer) {
                 final MembersData currentMember = membersData.get(position);
                 final String name = currentMember.getName();
+                final String email = currentMember.getEmail();
                 holder.nametv.setText(currentMember.getName());
                 holder.branchtv.setText(currentMember.getBranch());
                 holder.nesttv.setText(Integer.toString(currentMember.getNest()));
@@ -138,7 +140,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         else {
                             Log.v("TAG", "Starting MemberDetails");
                             Intent intent = new Intent(ct, MemberDetails.class);
-                            intent.putExtra("name", name);
+                            intent.putExtra("name", email);
                             intent.putExtra("tabPosition", tabPosition);
 //                            Log.v("TAG", nest_captain);
                             intent.putExtra("nest_captain", nest_captain);

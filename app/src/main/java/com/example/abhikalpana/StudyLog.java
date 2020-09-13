@@ -63,7 +63,6 @@ public class StudyLog extends AppCompatActivity {
                     complete_log = et_editlog.getText().toString();
                     if(complete_log.isEmpty()) {}
                     else {
-//                        url_post_data = "http://thantrajna.com/AbhiKalpana/update_log.php?id=" + id + "&log=" + complete_log;
                         updateData();
                         et_editlog.getText().clear();
                         et_editlog.setVisibility(View.GONE);

@@ -4,11 +4,12 @@ public class MembersData {
     String name, branch, email, dpUrl, nest_captain, last_attended;
     int nest;
 
-    public MembersData(String name, String branch, String dpUrl, int nest) {
+    public MembersData(String name, String branch, String dpUrl, int nest, String email) {
         this.name = name;
         this.branch = branch;
         this.dpUrl = dpUrl;
         this.nest = nest;
+        this.email = email;
     }
 
     public String getName() {

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,6 +74,7 @@ public class MemberDetails extends AppCompatActivity {
     RelativeLayout schoolrelativelayout;
     LinearLayout laststudiedrelativelayout;
     RelativeLayout lastcheckuprelativelayout;
+    CheckBox cb_nestCaptain;
     Button updatebtn;
     Button uploadimagebtn;
     Button editbtn;
@@ -87,7 +89,7 @@ public class MemberDetails extends AppCompatActivity {
     StorageReference storageRef,imageRef;
     ProgressDialog progressDialog;
     UploadTask uploadTask;
-    String name, class_no, school, last_attended_date, last_studied, last_checkup_date, dpurl;
+    String name, class_no, school, last_attended_date, last_studied, last_checkup_date, dpurl, current_name, userName, email;
     String branch, nest_captain, nest_captainCheck = "true";
     static String path;
     int age, nest_no, globalNest_no, id;
@@ -102,7 +104,8 @@ public class MemberDetails extends AppCompatActivity {
         setContentView(R.layout.activity_member_details);
         requestQueue = Volley.newRequestQueue(this);
         tabPosition = getIntent().getIntExtra("tabPosition", 0);
-        name = getIntent().getStringExtra("name");
+        email = getIntent().getStringExtra("name");
+        Log.v("TAG", "intent name: " + name);
         nameofUser = getIntent().getStringExtra("nameofUser");
         globalNest_no = getIntent().getIntExtra("nest_no", 1);
         nest_captainCheck = getIntent().getStringExtra("nest_captain");
@@ -158,7 +161,7 @@ public class MemberDetails extends AppCompatActivity {
         if (tabPosition == 1) {
             path = "Volunteers";
             memberMode();
-            getMembersDatafromFirebase();
+            getpathName();
             editbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -209,6 +212,7 @@ public class MemberDetails extends AppCompatActivity {
         schoolrelativelayout = (RelativeLayout) findViewById(R.id.schoolrelativelayout);
         laststudiedrelativelayout = (LinearLayout) findViewById(R.id.laststudiedrelativelayout);
         lastcheckuprelativelayout = (RelativeLayout) findViewById(R.id.lastcheckuprelativelayout);
+        cb_nestCaptain = findViewById(R.id.cb_nestCaptain);
         updatebtn = (Button) findViewById(R.id.updatebtn);
         uploadimagebtn = (Button) findViewById(R.id.uploadimagebtnofmemberdetails);
         editbtn = (Button) findViewById(R.id.editbtn);
@@ -223,7 +227,7 @@ public class MemberDetails extends AppCompatActivity {
         branchtv.setVisibility(View.GONE);
         agetv.setVisibility(View.GONE);
         nesttv.setVisibility(View.GONE);
-        nestcaptaintv.setVisibility(View.GONE);
+//        nestcaptaintv.setVisibility(View.GONE);
         schooltv.setVisibility(View.GONE);
         classtv.setVisibility(View.GONE);
         lastattendedDateTV.setVisibility(View.GONE);
@@ -233,7 +237,8 @@ public class MemberDetails extends AppCompatActivity {
         branchet.setVisibility(View.VISIBLE);
         ageet.setVisibility(View.VISIBLE);
         nestet.setVisibility(View.VISIBLE);
-        nestcaptainet.setVisibility(View.VISIBLE);
+//        nestcaptainet.setVisibility(View.VISIBLE);
+        cb_nestCaptain.setVisibility((View.VISIBLE));
         schoolet.setVisibility(View.VISIBLE);
         classet.setVisibility(View.VISIBLE);
         lastattendedDateET.setVisibility(View.VISIBLE);
@@ -259,6 +264,7 @@ public class MemberDetails extends AppCompatActivity {
         lastcheckupDateET.setVisibility(View.GONE);
         logedittext.setVisibility(View.VISIBLE);
         logedittext.getText().clear();
+        cb_nestCaptain.setVisibility(View.GONE);
 
         nametv.setVisibility(View.VISIBLE);
         branchtv.setVisibility(View.VISIBLE);
@@ -323,6 +329,7 @@ public class MemberDetails extends AppCompatActivity {
 
             branchtv.setVisibility(View.VISIBLE);
             nestcaptaintv.setVisibility(View.VISIBLE);
+            nestcaptaintv.setText("Nest Captain");
         } else {
             ageet.setVisibility(View.GONE);
             classet.setVisibility(View.GONE);
@@ -336,7 +343,8 @@ public class MemberDetails extends AppCompatActivity {
             lastcheckuprelativelayout.setVisibility(View.GONE);
 
             branchet.setVisibility(View.VISIBLE);
-            nestcaptainet.setVisibility(View.VISIBLE);
+//            nestcaptainet.setVisibility(View.VISIBLE);
+            cb_nestCaptain.setVisibility(View.VISIBLE);
         }
     }
 
@@ -376,6 +384,8 @@ public class MemberDetails extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    Log.v("TAG", name);
+                    current_name = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("Name").getValue(String.class);
                     branch = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("Branch").getValue(String.class);
                     nest_captain = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("Nest Captain").getValue(String.class);
                     nest_no = dataSnapshot.child(String.valueOf(globalNest_no)).child(name).child("Nest").getValue(Integer.class);
@@ -392,6 +402,22 @@ public class MemberDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    void getpathName() {
+        final DatabaseReference memberAuth = FirebaseDatabase.getInstance().getReference("Volunteer Emails");
+        memberAuth.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                name = dataSnapshot.child(email).child("Name").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        getMembersDatafromFirebase();
     }
 
     void setKidsData() {
@@ -439,7 +465,7 @@ public class MemberDetails extends AppCompatActivity {
 
     void setMembersData() {
         if(readStatus ) {
-            nametv.setText(name);
+            nametv.setText(current_name);
             nesttv.setText("Nest: " + Integer.toString(nest_no));
             if (nest_captain.equals("false"))
                 nestcaptaintv.setText("Nest Captain: No");
@@ -457,7 +483,7 @@ public class MemberDetails extends AppCompatActivity {
         }
 
         if(!readStatus ) {
-            nameet.setText(name);
+            nameet.setText(current_name);
             nestet.setText(Integer.toString(nest_no));
             if (nest_captain.equals("false"))
                 nestcaptainet.setText("No");
@@ -508,27 +534,33 @@ public class MemberDetails extends AppCompatActivity {
 
     void updateMembersData(View v) {
 
-        name = nameet.getText().toString();
-        branch = branchet.getText().toString();
-        nest_captain = nestcaptainet.getText().toString();
-        nest_no = Integer.parseInt((nestet.getText().toString()));
-        last_attended_date = lastattendedDateET.getText().toString();
+        String new_name = nameet.getText().toString();
+        String new_branch = branchet.getText().toString();
+//        String nest_captain = nestcaptainet.getText().toString();
+        int new_nest_no = Integer.parseInt((nestet.getText().toString()));
+        String new_last_attended_date = lastattendedDateET.getText().toString();
         final DatabaseReference updatemembers = FirebaseDatabase.getInstance().getReference("Volunteers");
-        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Name").setValue(name);
-        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Branch").setValue(branch);
-        if(nest_captain.toLowerCase() == "yes")
+        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Name").setValue(new_name);
+        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Branch").setValue(new_branch);
+        if(cb_nestCaptain.isChecked()) {
             updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Nest Captain").setValue("true");
-        else
+            final DatabaseReference memberAuth = FirebaseDatabase.getInstance().getReference("Volunteer Emails");
+            memberAuth.child(email).child("Nest Captain").setValue("true");
+        }
+        else {
             updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Nest Captain").setValue("false");
-        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Nest").setValue(nest_no);
-        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Last Attended").setValue(last_attended_date);
+            final DatabaseReference memberAuth = FirebaseDatabase.getInstance().getReference("Volunteer Emails");
+            memberAuth.child(email).child("Nest Captain").setValue("false");
+        }
+        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Nest").setValue(new_nest_no);
+        updatemembers.child(String.valueOf(globalNest_no)).child(name).child("Last Attended").setValue(new_last_attended_date);
         if(uploadbuttonPressed) {
             uploadImage(v);
             uploadbuttonPressed = false;
         }
         Toast.makeText(v.getContext(), "Updated Successfully", Toast.LENGTH_SHORT).show();
         readMode();
-        setMembersData();
+        getMembersDatafromFirebase();
     }
 
 
